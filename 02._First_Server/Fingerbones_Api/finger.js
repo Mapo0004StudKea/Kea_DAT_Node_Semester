@@ -18,7 +18,10 @@ app.get("/fingerbones", (req, res) => {
 // GET a single finger bone by ID
 app.get("/fingerbones/:id", (req, res) => {
     const id = parseInt(req.params.id);
-    const fingerBone = fingerBones.find((bone) => bone.id === id);
+    const fingerBone = fingerBones.find(function (bone) {
+        return bone.id === id;
+    });
+    
 
     if (!fingerBone) {
         return res.status(404).json({ message: "FingerBone not found" });
