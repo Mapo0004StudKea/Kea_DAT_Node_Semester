@@ -59,3 +59,8 @@ const value = 4;
 // don't use plus in the console.log to avoid type coercion
 // + bliver 4 tallet hvidt da den bliver til en string
 console.log(assignmentDescription, value);
+
+
+// data types
+// number, string, boolean, object, bitInt, symbol, null, undefined
+

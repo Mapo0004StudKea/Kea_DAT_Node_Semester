@@ -1,0 +1,14 @@
+build tools
+er packege managers
+Examples: maven, gradle, make, ant, nuget
+
+Java                Node.js
+----                -------
+
+maven               npm, pnpm, yarn
+
+pom.xml             package.json
+
+meta                meta
+dependencies        dependencies
+life cycles         scripts

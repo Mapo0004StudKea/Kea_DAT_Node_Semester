@@ -1,0 +1,7 @@
+Endpoint,HTTP Verb,Description
+/wines,GET,Retrieves all wines
+/wines/{id},GET,Retrieves a single wine
+/wines,POST,Creates a single wine resource
+/wines/{id},PUT,Updates a single wine resource
+/wines/{id},PATCH,Updates part of a wine resource
+/wines/{id},DELETE,Deletes a single wine resource
