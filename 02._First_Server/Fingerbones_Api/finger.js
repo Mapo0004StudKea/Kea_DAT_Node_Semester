@@ -3,11 +3,11 @@ const app = express();
 
 // In-memory storage for FingerBones
 let fingerBones = [
-    { id: 1, name: "Thumb", description: "The thickest finger" },
-    { id: 2, name: "Index", description: "Used for pointing" },
-    { id: 3, name: "Middle", description: "The longest finger" },
-    { id: 4, name: "Ring", description: "Wears a ring" },
-    { id: 5, name: "Pinky", description: "The smallest finger" },
+    { id: 1, name: "Thumb", description: "This is the thumb" },
+    { id: 2, name: "Index", description: "This is the index finger" },
+    { id: 3, name: "Middle", description: "This is the middle finger"  },
+    { id: 4, name: "Ring", description: "This is the ring finger" },
+    { id: 5, name: "Pinky", description: "This is the pinky" },
 ];
 
 // GET all finger bones
