@@ -2,6 +2,9 @@
 const express = require('express');
 const app = express();
 
+        // express = biblioteket, .json er en utility pakke
+app.use(express.json());
+
 // anden måde at skrive det samme men bruger det andet: const app = require('express')();
 
 
@@ -9,6 +12,13 @@ const app = express();
 // route / get handler 
 app.get("/", (req, res) => {
     res.send({ data: "This is the root route" });
+});
+
+// fra uge 3
+console.log(__dirname);
+
+app.get("/welcomepage", (req, res) => {
+    res.sendFile(__dirname+'/index.html');
 });
 
 // assignment: /blablabla
@@ -19,6 +29,8 @@ app.get("/blablabla", (req, res) => {
 // assignemnt: create a route for /search that returns an empty JSON - fra uge 3
 // task create a seatch where the query parameter is q that contains the search
 // bruger http://localhost:8080/search?q=my%20search - altså ?q=
+
+// kan sende data med get request: path variable og query string
 
 // req og res er callback functioner
 app.get("/search", (req, res) => {
@@ -46,6 +58,21 @@ const favoriteThings = (req, res) => {
 }
 
 app.get("/favoritethings/:flower/:animal", favoriteThings);
+
+// uge 3 ting:
+// body parsing: mangler noget body parsing - bliver ikke parset. req.body bør bare være et array
+app.post("/favoritepoliticians", (req, res) => {
+    console.log(req.body);
+
+    res.send({data: req.body});
+});
+
+// assignemnt: create a new route and send some data to it through the body - fra uge 3
+app.post("/testroute", (req, res) => {
+    console.log(req.body);
+
+    res.send({data: req.body});
+});
 
 // smid i bunden af filen, problemer kan opstå hvis det er i toppen
 app.listen(8080);
