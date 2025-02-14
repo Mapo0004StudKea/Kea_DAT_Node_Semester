@@ -1,6 +1,6 @@
 Endpoints           HTTP Verb
 --------------------------------------------
-/fingerbone         GET
+/fingerbones        GET
 /fingerbones/{id}   GET
 /fingerbones/       POST
 /fingerbones/{id}   PUT

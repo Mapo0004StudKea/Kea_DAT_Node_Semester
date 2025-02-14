@@ -1,0 +1,7 @@
+protocol    subdomain   domain  top level domain    engpoint
+https://    www         google  .com                /search?hl=en&q=my%20search
+
+        path variable
+/search/1
+        query string    query parameter
+/search ?               hl=en&q=my%20search

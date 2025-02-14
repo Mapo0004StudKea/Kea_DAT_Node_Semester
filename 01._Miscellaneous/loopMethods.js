@@ -70,3 +70,5 @@ const listOfReactions = ["thumbs down", "thumbs down", "thumbs down"];
 const updatedReaction = listOfReactions.map((reaction) => "thumbs up");
 
 console.log(listOfReactions);
+
+listOfReactions.forEach((value, index, array) => console.log(value, index, array));
