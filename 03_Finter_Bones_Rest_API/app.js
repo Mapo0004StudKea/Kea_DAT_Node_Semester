@@ -4,6 +4,8 @@ const express = require('express');
 // vil gerne instansiere express
 const app = express();
 
+app.use(express.json());
+
 // bruger datatype med objecter
 const fingerBones = [
     {
@@ -16,22 +18,74 @@ const fingerBones = [
     }
 ];
 
-app.get("/fingerbones", (req, res) => {
-   res.send({ data: fingerBones }); // Don't do this
-   
+// **Home Route**
+app.get("/", (req, res) => {
+    res.send({ message: "Welcome to the FingerBones API. Use /fingerbones for data access." });
 });
 
-app.get("/fingerbones/:id", (req, res) => {
-    const fingerBoneId = Number(req.params.id);
-    const foundFingerBones = fingerBones.find((fingerBones) => fingerBones.id === fingerBoneId);
 
-    if (!foundFingerBones) {
-        // error case
-        res.status(404).send({error: `No finger bones found with id ${fingerBoneId}` })
-        } else {
-            res.send({ data: foundFingerBones });
-        }
-    });
+// **GET - Hent alle fingerbones**
+app.get("/fingerbones", (req, res) => {
+    res.json({ data: fingerBones });
+});
+
+// **GET - Hent en fingerbone baseret på ID**
+app.get("/fingerbones/:id", (req, res) => {
+    const fingerBoneId = parseInt(req.params.id);
+    const fingerBone = fingerBones.find(fb => fb.id === fingerBoneId);
+
+    if (!fingerBone) {
+        return res.status(404).json({ error: `No finger bone found with id ${fingerBoneId}` });
+    }
+
+    res.json({ data: fingerBone });
+});
+
+
+// **POST - Tilføj en ny fingerbone**
+app.post("/fingerbones", (req, res) => {
+    const { artistName, name } = req.body;
+
+    if (!artistName && !name) {
+        return res.status(400).json({ error: "Either artistName or name is required" });
+    }
+
+    const newId = fingerBones.length ? fingerBones[fingerBones.length - 1].id + 1 : 1;
+    const newFingerBone = { id: newId, artistName, name };
+
+    fingerBones.push(newFingerBone);
+    res.status(201).json({ data: newFingerBone });
+});
+
+
+// **PUT - Opdater en eksisterende fingerbone**
+app.put("/fingerbones/:id", (req, res) => {
+    const fingerBoneId = parseInt(req.params.id);
+    const fingerBone = fingerBones.find(fb => fb.id === fingerBoneId);
+
+    if (!fingerBone) {
+        return res.status(404).json({ error: `No finger bone found with id ${fingerBoneId}` });
+    }
+
+    const { artistName, name } = req.body;
+    if (artistName !== undefined) fingerBone.artistName = artistName;
+    if (name !== undefined) fingerBone.name = name;
+
+    res.json({ data: fingerBone });
+});
+
+// **DELETE - Slet en fingerbone**
+app.delete("/fingerbones/:id", (req, res) => {
+    const fingerBoneId = parseInt(req.params.id);
+    const index = fingerBones.findIndex(fb => fb.id === fingerBoneId);
+
+    if (index === -1) {
+        return res.status(404).json({ error: `No finger bone found with id ${fingerBoneId}` });
+    }
+
+    fingerBones.splice(index, 1);
+    res.json({ message: `Finger bone with id ${fingerBoneId} has been deleted` });
+});
 
 
 //status codes
