@@ -20,7 +20,7 @@ const fingerBones = [
 
 // **Home Route**
 app.get("/", (req, res) => {
-    res.send({ message: "Welcome to the FingerBones API. Use /fingerbones for data access." });
+    res.send({ message: "Velkommen til FingerBones API. Brug /fingerbones for at indhente data" });
 });
 
 
