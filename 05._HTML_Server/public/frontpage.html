@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 3. external CSS file -->
+    <!-- <link rel="stylesheet" href="./frontpage.css"> -->
+
+    <!-- 2. CSS in style tag -->
+    <style>
+        #frontpage-header {
+            color: red;
+        }
+
+        .headers {
+            background-color: gray;
+        }
+    </style>
+    <title>Frontpage</title>
+</head>
+<body>
+    <h1 class="headers" id="frontpage-header">Frontpage</h1>
+
+    <!-- 1. inline-css-->
+    <h2 class="headers" style="color: blue;">Welcome users!</h2>
+
+    <p>Youe are the visitor number:</p>
+    <div id="visitorsCount"></div>
+
+    <script>
+        // assignment: fetch the visitors count and show it on thte page
+        fetch("/visitorcount")
+        .then((response) => response.json())
+        .then((result) => {
+            const visitorCountDiv = document.getElementById("visitorsCount");
+            visitorCountDiv.textContent = result.data;
+        });
+    </script>
+</body>
+</html>
