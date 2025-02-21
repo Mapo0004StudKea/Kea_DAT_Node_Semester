@@ -18,7 +18,7 @@ const fingerBones = [
     }
 ];
 
-let nextId = 3;
+let currentId = 2;
 
 // **Home Route**
 app.get("/", (req, res) => {
@@ -44,45 +44,53 @@ app.get("/fingerbones/:id", (req, res) => {
 });
 
 // **POST - Tilføj en ny fingerbone**
-app.post("/fingerbones", (req, res) => {
+app.post("/fingerbones/:id", (req, res) => {
     const newFingerbone = req.body;
-    newFingerbone.id = nextId++;
-
-    fingerBones.push(newFingerbone);
-
-    res.send({ data: newFingerbone });
+    newFingerbone.id = currentId++;
+    res.send({});
 })
 
-// **PATCH - Opdater en eksisterende fingerbone**
-app.patch("/fingerbones/:id", (req, res) => {
-    const providedFingerBoneId = Number(req.params.id);
-    const foundFingerBoneIndex = fingerBones.findIndex((fingerBones) => fingerBones.id === providedFingerBoneId);
+app.post("/fingerbones", (req, res) => {
+    const { artistName, name } = req.body;
 
-    if (foundFingerBoneIndex === -1) {
-        res.status(404).send({error: `Could not find a fingerbone with id ${providedFingerBoneId}`});
-    } else {
-        const existingFingerBone = fingerBones[foundFingerBoneIndex];
+    if (!artistName && !name) {
+        return res.status(400).json({ error: "Either artistName or name is required" });
+    }
 
-        const newFingerBone = { ...existingFingerBone, ...req.body, id: existingFingerBone.id };
+    const newId = fingerBones.length ? fingerBones[fingerBones.length - 1].id + 1 : 1;
+    const newFingerBone = { id: newId, artistName, name };
 
-        fingerBones [foundFingerBoneIndex] = newFingerBone;
-        res.send({ data: newFingerBone });
-    }   
+    fingerBones.push(newFingerBone);
+    res.status(201).json({ data: newFingerBone });
 });
 
-console.log(fingerBones.findIndex((fingerBones) => false));
+// **PUT - Opdater en eksisterende fingerbone**
+app.put("/fingerbones/:id", (req, res) => {
+    const fingerBoneId = parseInt(req.params.id);
+    const fingerBone = fingerBones.find(fb => fb.id === fingerBoneId);
+
+    if (!fingerBone) {
+        return res.status(404).json({ error: `No finger bone found with id ${fingerBoneId}` });
+    }
+
+    const { artistName, name } = req.body;
+    if (artistName !== undefined) fingerBone.artistName = artistName;
+    if (name !== undefined) fingerBone.name = name;
+
+    res.json({ data: fingerBone });
+});
 
 // **DELETE - Slet en fingerbone**
 app.delete("/fingerbones/:id", (req, res) => {
-    const providedFingerBoneId = Number(req.params.id);
-    const foundFingerBoneIndex = fingerBones.findIndex((fingerBones) => fingerBones.id === providedFingerBoneId);
+    const fingerBoneId = parseInt(req.params.id);
+    const index = fingerBones.findIndex(fb => fb.id === fingerBoneId);
 
-    if (foundFingerBoneIndex === -1) {
-        res.status(404).send({error: `Could not find a fingerbone with id ${providedFingerBoneId}`});
-    } else {
-        fingerBones.splice(foundFingerBoneIndex, 1);
-        res.status(204).send();
-    }   
+    if (index === -1) {
+        return res.status(404).json({ error: `No finger bone found with id ${fingerBoneId}` });
+    }
+
+    fingerBones.splice(index, 1);
+    res.json({ message: `Finger bone with id ${fingerBoneId} has been deleted` });
 });
 
 //status codes
