@@ -1,8 +1,8 @@
 const express = require('express');
 
 // {partiesLibrary} giver undefined skal være {parties} - destructuring
-const {parties} = require('./util/partiesLibrary.js');
-console.log(parties);
+// const {parties} = require('./util/partiesLibrary.js');
+// console.log(parties);
 
 const app = express();
 
