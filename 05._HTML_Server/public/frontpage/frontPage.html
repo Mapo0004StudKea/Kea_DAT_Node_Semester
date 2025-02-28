@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <!-- anden måde at dynamiske skifte side på client siden -->
+    <!-- <meta http-equiv="refresh" content="3;/partyPage"> -> redirect to party page after 3 seconds -->
     <!-- 3. external CSS file -->
     <link rel="stylesheet" href="./frontpage/frontpage.css">
 
@@ -29,11 +30,17 @@
     <div id="visitorsCount"></div>
 
     <!-- task in the HTML redirect to the party page -->
+     <!-- Anchor tag der peger på end pointet fra app.js -->
     <a href="/partypage">Link til party page</a>
-    
+
     <script src="/frontpage/frontpage.js"></script>
 
     <script>
+        // after 3 seconds programmically go the party page
+        setTimeout(() => {
+            window.location.replace("/partypage");
+        }, 3000);
+
         // assignment: fetch the visitors count and show it on thte page
         fetch("/visitorcount")
         .then((response) => response.json())
