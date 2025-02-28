@@ -67,6 +67,11 @@ app.post("/favoritepoliticians", (req, res) => {
     res.send({data: req.body});
 });
 
+// redirect backend (serverside) - uge 5
+app.get("/redirecttofavoritethings", (req, res) => {
+    res.redirect("/favoritethings/tulips/sea-lions");
+});
+
 // assignemnt: create a new route and send some data to it through the body - fra uge 3
 app.post("/testroute", (req, res) => {
     console.log(req.body);
