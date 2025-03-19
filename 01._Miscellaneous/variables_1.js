@@ -6,7 +6,7 @@ const name = 'Martin';
 
 // const is NOT a constant
 // that means that const CAN have its value changed
-// cosnst is a constant in the DECLARATION
+// const is a constant in the DECLARATION
 // const MUST be delcared as it is initialized
 
 // name = "Martin";
