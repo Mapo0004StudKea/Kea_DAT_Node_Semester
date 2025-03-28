@@ -1,1 +1,0 @@
-<h4 id="welcome-mate">Home sweet home</h4>
