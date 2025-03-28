@@ -1,4 +1,12 @@
+<script>
+    import {fridgeMessages } from "../../stores/fridgeMessagesStore.js";
 
+    console.log(fridgeMessages);
+</script>
+
+{#each $fridgeMessages as fridgeMessage}
+    <p>{fridgeMessage.message}</p>
+{/each}
 
 <slot></slot>
 
